@@ -34,3 +34,11 @@ cacheSolve <- function(x, ...) {
   x$setSolve(S)
   S
 }
+
+
+test1 <- makeCacheMatrix()
+temp.dim <- 1000L
+test1$set(matrix(rnorm(temp.dim^2),nrow=temp.dim))
+system.time(cacheSolve(test1))
+system.time(cacheSolve(test1))
+system.time(cacheSolve(test1))
