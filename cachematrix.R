@@ -5,7 +5,17 @@
 ##   that (get/set) the value of the (matrix/inverse).
 
 makeCacheMatrix <- function(x = matrix()) {
-
+  S <- NULL
+  set <- function(y) {
+    x <<- y
+    S <<- NULL
+  }
+  get <- function() x
+  setSolve <- function(Solve) S <<- Solve
+  getSolve <- function() S
+  list(set = set, get = get,
+       setSolve = setSolve,
+       getSolve = getSolve)
 }
 
 
@@ -14,4 +24,13 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
+  S <- x$getSolve()
+  if(!is.null(S)) {
+    message("getting cached data")
+    return(S)
+  }
+  data <- x$get()
+  S <- solve(data, ...)
+  x$setSolve(S)
+  S
 }
