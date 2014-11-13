@@ -35,10 +35,27 @@ cacheSolve <- function(x, ...) {
   S
 }
 
+temp.dim <- 1000L
 
 test1 <- makeCacheMatrix()
-temp.dim <- 1000L
 test1$set(matrix(rnorm(temp.dim^2),nrow=temp.dim))
 system.time(cacheSolve(test1))
 system.time(cacheSolve(test1))
 system.time(cacheSolve(test1))
+
+test2 <- makeCacheMatrix()
+test2$set(matrix(rnorm(temp.dim^2),nrow=temp.dim))
+system.time(cacheSolve(test2))
+system.time(cacheSolve(test2))
+system.time(cacheSolve(test2))
+
+str(test1)
+
+environment(cacheSolve)
+environment(makeCacheMatrix)
+
+environment(test1$set)
+environment(test2$set)
+
+ls.str(environment(test1$set))
+ls.str(environment(test2$set))
